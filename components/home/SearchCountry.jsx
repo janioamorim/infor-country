@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   SearchContainer,
   SearchInput,
 } from "../../styles/search_country_styles";
+import { CountryContext } from "../../context/CountryContext";
 
 export default function SearchCountry() {
-  const {search, setSearch } = useState();
+  const {
+    state: { search },
+    setSearch,
+  } = useContext(CountryContext);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);

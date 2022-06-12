@@ -1,5 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import Header from "../components/layouts/Header";
+import CountryProvider from "../context/CountryContext";
 import { useDarkMode } from "../src/useDarkMode";
 
 const GlobalStyle = createGlobalStyle`
@@ -33,12 +34,13 @@ function MyApp({ Component, pageProps }) {
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
   return (
-   
+    <CountryProvider>
       <ThemeProvider theme={themeMode}>
         <GlobalStyle />       
         <Header theme={theme} toggleTheme={themeToggler} />
         <Component {...pageProps} />      
       </ThemeProvider>
+    </CountryProvider>
   
   );
 }
