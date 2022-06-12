@@ -16,10 +16,13 @@ export default function Home() {
     filterCountriesByRegion,
   } = useContext(CountryContext);
 
+
+
   const [countries, setCountries] = useState();
 
   const getAllCountries = async () => {
-    const result = await countriesService.getAllCountries();    
+    const result = await countriesService.getAllCountries(); 
+
       const countriesProps = result.data.map((country) => ({
             name: country.name,
             capital: country.capital ? country.capital : "",
@@ -27,6 +30,7 @@ export default function Home() {
             region: country.region,
             flag: country.flags.svg,
             cca2: country.alpha2Code,
+            nameBr: country.translations.br
       }));
     filterCountries(countriesProps);
     setCountries(countriesProps);

@@ -11,6 +11,7 @@ import {
 
 
 export default function CountryCard({ country }) {
+
   return (
     <Link href={`/${country.cca2}`} passHref>
       <CountryCardContainer>
@@ -19,16 +20,16 @@ export default function CountryCard({ country }) {
         </FlagContainer>
 
         <CountryInfoContainer>
-          <CountryName>{country.name}</CountryName>
+          <CountryName>{country.nameBr}</CountryName>
 
           <CountryInfo>
             <InfoItem>
-              <strong>Population: </strong>
+              <strong>População: </strong>
               <span>{country.population}</span>
             </InfoItem>
             {country.region && (
               <InfoItem>
-                <strong>Region: </strong>
+                <strong>Região: </strong>
                 <span>{country.region}</span>
               </InfoItem>
             )}
