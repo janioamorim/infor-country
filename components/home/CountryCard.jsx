@@ -25,7 +25,7 @@ export default function CountryCard({ country }) {
           <CountryInfo>
             <InfoItem>
               <strong>População: </strong>
-              <span>{country.population}</span>
+              <span>{country.population.toLocaleString({ maximumFractionDigits: 2 })}</span>
             </InfoItem>
             {country.region && (
               <InfoItem>

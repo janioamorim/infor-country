@@ -4,10 +4,12 @@ import Layout from "../components/layouts/Layout";
 import CountriesList from "../components/home/CountriesList";
 import FilterCountry from "../components/home/FilterCountry";
 
+
 import { HomeContainer, SearchContainer } from "../styles/home_page_styles";
 
 import { countriesService } from "../services/countries.service";
 import { CountryContext } from "../context/CountryContext";
+import Loading from "../components/loading/loading";
 
 export default function Home() {
   const {
@@ -15,26 +17,26 @@ export default function Home() {
     filterCountries,
     filterCountriesByRegion,
   } = useContext(CountryContext);
-
-
+  const [isLoading, setIsLoading] = useState(false);
 
   const [countries, setCountries] = useState();
 
   const getAllCountries = async () => {
-    const result = await countriesService.getAllCountries(); 
-
-      const countriesProps = result.data.map((country) => ({
-            name: country.name,
-            capital: country.capital ? country.capital : "",
-            population: country.population,
-            region: country.region,
-            flag: country.flags.svg,
-            cca2: country.alpha2Code,
-            nameBr: country.translations.br
-      }));
+    setIsLoading(true);
+    const result = await countriesService.getAllCountries();
+    const countriesProps = result.data.map((country) => ({
+      name: country.name,
+      capital: country.capital ? country.capital : "",
+      population: country.population,
+      region: country.region,
+      flag: country.flags.svg,
+      cca2: country.alpha2Code,
+      nameBr: country.translations.br,
+    }));
     filterCountries(countriesProps);
     setCountries(countriesProps);
-  }
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     filterCountries(countries);
@@ -44,22 +46,25 @@ export default function Home() {
     filterCountriesByRegion(countries);
   }, [region]);
 
-  useEffect(()=>{   
+  useEffect(() => {
     getAllCountries();
-  }, [])
+  }, []);
 
   return (
-    <Layout title={search ? `Buscar por ${search}` : "Todos Países"}>  
+    <Layout title={search ? `Buscar por ${search}` : "Todos Países"}>
       <HomeContainer>
         <SearchContainer>
           <SearchCountry />
-          <FilterCountry />       
+          <FilterCountry />
         </SearchContainer>
-        <CountriesList
-          countries={search || region ? filteredCountries : countries}
-        />     
+        {isLoading ? (
+          <Loading/>
+        ) : (
+          <CountriesList
+            countries={search || region ? filteredCountries : countries}
+          />
+        )}
       </HomeContainer>
     </Layout>
-    
   );
 }

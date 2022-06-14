@@ -48,7 +48,6 @@ export default function CountryProvider({ children }) {
   };
 
   const setSearch = (search) => {
-    console.log('enter', search);
     dispatch({ type: "SET_SEARCH", payload: { search } });
   };
 

@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import {
   AppBar,
@@ -8,6 +9,7 @@ import {
 } from "../../styles/header_styles";
 
 export default function Header({ theme, toggleTheme }) {
+  console.log('toggleTheme', toggleTheme);
   return (
     <AppBar>
       <HeaderContainer>

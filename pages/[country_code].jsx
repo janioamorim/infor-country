@@ -17,7 +17,6 @@ import Layout from "../components/layouts/Layout";
 import { countriesService } from "../services/countries.service";
 
 export default function CountryPage({ country, borders }) {
-
   if (!country) {
     return <p>País não encontrado</p>;
   }
@@ -26,7 +25,7 @@ export default function CountryPage({ country, borders }) {
     Router.push("/");
   };
   return (
-    <Layout title={country ? country.name.common : "Loading..."}>
+    <Layout title={country ? country.name : "Loading..."}>
       <Container>
         <BackButton onClick={goHome}>
           <span className="material-icons">keyboard_backspace</span>
@@ -43,7 +42,7 @@ export default function CountryPage({ country, borders }) {
           />
 
           <div>
-            <CountryName>{country.name.common}</CountryName>
+            <CountryName>{country.translations?.br}</CountryName>
 
             <CountryInfoContainer>
               <CountryInfo>
@@ -54,7 +53,7 @@ export default function CountryPage({ country, borders }) {
                 {country.population && (
                   <div>
                     <strong>População: </strong>
-                    <span>{country.population}</span>
+                    <span>{country.population.toLocaleString({ maximumFractionDigits: 2 })}</span>
                   </div>
                 )}
                 <div>

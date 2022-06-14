@@ -1,4 +1,18 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const animate = keyframes`
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    50%{
+        opacity: .3;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+`;
 
 export const CountryCardContainer = styled.div`
   background-color: ${(props) => props.theme.elements};
@@ -7,6 +21,12 @@ export const CountryCardContainer = styled.div`
   padding-bottom: 2rem;
   cursor: pointer;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  animation: ${animate} .5s ease;
+  &:hover {
+        opacity: .7;
+        transform: translateY(-10px);
+        transition: .8s;
+    }
 `;
 
 export const CountryFlag = styled.img`
